@@ -1,7 +1,7 @@
 export default {
 	providers: [
 		{
-			domain: 'https://eternal-snapper-79.clerk.accounts.dev',
+			domain: process.env.CLERK_AUTH_DOMAIN,
 			applicationID: 'convex',
 		},
 	],
