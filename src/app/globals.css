@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-	font-family: Arial, Helvetica, sans-serif;
-}
+@import url('./fonts/Supreme_Complete/css/supreme.css');
+@import url('./fonts/Pally_Complete/css/pally.css');
 
 @layer utilities {
 	.text-balance {
