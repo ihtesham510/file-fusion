@@ -19,7 +19,7 @@ export default function Header() {
 					<OrganizationSwitcher />
 				</Button>
 				<Button variant='ghost' size='icon' className='rounded-full'>
-					<UserButton />
+					<UserButton afterSignOutUrl='/' />
 				</Button>
 				<span className='hidden lg:block'>
 					<ThemeSwitcher />

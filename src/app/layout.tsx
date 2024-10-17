@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
-import ClerkProvider from './clerk-provider'
-import { ConvexClientProvider } from './ConvexClientProvider'
+import ConvexClerkProvider from './ConvexClerkProvider'
 import { ThemeProvider } from './theme-provider'
 import { Toaster } from '@/components/ui/toaster'
 
@@ -31,9 +30,7 @@ export default function RootLayout({
 		<html lang='en'>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				<ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
-					<ClerkProvider>
-						<ConvexClientProvider>{children}</ConvexClientProvider>
-					</ClerkProvider>
+					<ConvexClerkProvider>{children}</ConvexClerkProvider>
 					<Toaster />
 				</ThemeProvider>
 			</body>
