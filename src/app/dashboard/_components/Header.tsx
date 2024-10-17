@@ -14,7 +14,7 @@ export default function Header() {
 			<Button variant='outline' size='sm' className='lg:hidden'>
 				<OrganizationSwitcher />
 			</Button>
-			<div className='flex gap-4 mr-4'>
+			<div className='flex gap-4 mr-4 lg:w-[350px] items-center justify-end'>
 				<Button variant='outline' size='sm' className='hidden lg:block'>
 					<OrganizationSwitcher />
 				</Button>

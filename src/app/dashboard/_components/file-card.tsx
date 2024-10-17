@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Skeleton } from '@/components/ui/skeleton'
 
-export default function ({ file }: { file: TypeFile }) {
+export default function FileCard({ file }: { file: TypeFile }) {
 	return (
 		<Card>
 			<CardHeader>

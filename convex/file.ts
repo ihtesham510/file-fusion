@@ -89,3 +89,10 @@ export const getUploadUrl = mutation({
 		return await ctx.storage.generateUploadUrl()
 	},
 })
+
+export const getFileUrl = mutation({
+	args: { id: v.id('_storage') },
+	async handler(ctx, args_0) {
+		return await ctx.storage.getUrl(args_0.id)
+	},
+})

@@ -1,6 +1,6 @@
 import { ConvexError, v } from 'convex/values'
 import { internalMutation, MutationCtx, QueryCtx } from './_generated/server'
-import { getUserData } from './users'
+import { getUserData, getUserIdentity } from './users'
 
 export async function hasAccesstoOrg(ctx: MutationCtx | QueryCtx, orgId: string, userId: string) {}
 
@@ -72,7 +72,10 @@ export const createMemShip = internalMutation({
 	 */
 	args: { userId: v.string(), orgId: v.string(), role: v.string() },
 	async handler(ctx, args_0) {
-		const user = await getUserData(ctx, { userId: args_0.userId })
+		const user = await ctx.db
+			.query('users')
+			.withIndex('by_userId', q => q.eq('id', args_0.userId))
+			.first()
 		if (!user) throw new ConvexError('user not found')
 		const org = await ctx.db
 			.query('organization')
@@ -94,7 +97,10 @@ export const updateMemShip = internalMutation({
 	 */
 	args: { userId: v.string(), orgId: v.string(), role: v.string() },
 	async handler(ctx, args_0) {
-		const user = await getUserData(ctx, { userId: args_0.userId })
+		const user = await ctx.db
+			.query('users')
+			.withIndex('by_userId', q => q.eq('id', args_0.userId))
+			.first()
 		if (!user) throw new ConvexError('user not found')
 		const org = await ctx.db
 			.query('organization')
@@ -118,7 +124,10 @@ export const delMemShip = internalMutation({
 	 */
 	args: { userId: v.string(), orgId: v.string() },
 	async handler(ctx, args_0) {
-		const user = await getUserData(ctx, { userId: args_0.userId })
+		const user = await ctx.db
+			.query('users')
+			.withIndex('by_userId', q => q.eq('id', args_0.userId))
+			.first()
 		if (!user) throw new ConvexError('user not found')
 		const org = await ctx.db
 			.query('organization')
