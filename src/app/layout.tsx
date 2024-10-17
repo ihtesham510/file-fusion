@@ -4,6 +4,7 @@ import './globals.css'
 import ClerkProvider from './clerk-provider'
 import { ConvexClientProvider } from './ConvexClientProvider'
 import { ThemeProvider } from './theme-provider'
+import { Toaster } from '@/components/ui/toaster'
 
 const geistSans = localFont({
 	src: './fonts/GeistVF.woff',
@@ -33,6 +34,7 @@ export default function RootLayout({
 					<ClerkProvider>
 						<ConvexClientProvider>{children}</ConvexClientProvider>
 					</ClerkProvider>
+					<Toaster />
 				</ThemeProvider>
 			</body>
 		</html>

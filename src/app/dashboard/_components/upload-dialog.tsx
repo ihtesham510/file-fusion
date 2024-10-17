@@ -8,11 +8,11 @@ import { useMutation } from 'convex/react'
 import { api } from '@convex/_generated/api'
 import { allowedFiles, checkFileSize, formatFileName, formatFileTypes, isAllowedFile } from '@/lib/files'
 import { TypesofFile } from '@/lib/types'
-import { toast } from '@/hooks/use-toast'
 import { Loader2Icon } from 'lucide-react'
 import axios from 'axios'
 import { Progress } from '@/components/ui/progress'
 import useUser from '@/hooks/use-user'
+import { useToast } from '@/hooks/use-toast'
 
 const UploadFileDialog = ({ children }: PropsWithChildren) => {
 	const [file_name, setFile_name] = useState<string>('')
@@ -25,6 +25,7 @@ const UploadFileDialog = ({ children }: PropsWithChildren) => {
 	const createFile = useMutation(api.file.createFile)
 	const generateUploadUrl = useMutation(api.file.getUploadUrl)
 	const getFileUrl = useMutation(api.file.getFileUrl)
+	const { toast } = useToast()
 	const user = useUser()
 	useEffect(() => {
 		setDisabled(status !== undefined)
@@ -57,7 +58,7 @@ const UploadFileDialog = ({ children }: PropsWithChildren) => {
 			setFile_type(undefined)
 			setDisabled(true)
 		}
-	}, [file])
+	}, [file, toast])
 	const handlecreateFile = useCallback(async () => {
 		if (user && file && file_type) {
 			setStatus('Uploading')
@@ -105,7 +106,19 @@ const UploadFileDialog = ({ children }: PropsWithChildren) => {
 			setSelectedFile(undefined)
 			setProgress(0)
 		}
-	}, [setStatus, setIsOpen, file_name, setFile_type, file_type, createFile, file, generateUploadUrl, getFileUrl, user])
+	}, [
+		setStatus,
+		toast,
+		setIsOpen,
+		file_name,
+		setFile_type,
+		file_type,
+		createFile,
+		file,
+		generateUploadUrl,
+		getFileUrl,
+		user,
+	])
 	return (
 		<>
 			<Dialog open={isOpen} onOpenChange={e => setIsOpen(e)}>
