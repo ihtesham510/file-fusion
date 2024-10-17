@@ -35,7 +35,7 @@ export default function FileCard({ file }: { file: TypeFile }) {
 			<CardContent>
 				<FileCover fileType={file.file_type} url={file.file_url} />
 			</CardContent>
-			<CardFooter className='my-6'>
+			<CardFooter>
 				{file.org && (
 					<div className='flex items-center gap-3 w-full'>
 						<Avatar>
@@ -55,7 +55,7 @@ export default function FileCard({ file }: { file: TypeFile }) {
 }
 
 function FileCover({ fileType, url }: { fileType: string; url: string }) {
-	const className = 'h-56 w-full flex items-center justify-center'
+	const className = 'h-40 w-full flex items-center justify-center'
 	switch (fileType) {
 		case 'JS':
 			return (
@@ -107,7 +107,7 @@ function FileCover({ fileType, url }: { fileType: string; url: string }) {
 			)
 		case 'PNG/JPEG':
 			return (
-				<div className='h-56 overflow-hidden rounded-md relative'>
+				<div className='h-40 overflow-hidden rounded-md relative'>
 					<Image src={url} alt='image' fill className='object-cover rounded-md' />
 				</div>
 			)

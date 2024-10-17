@@ -12,7 +12,7 @@ export default function AllFiles() {
 			</div>
 		)
 	return (
-		<div className='gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 grid grid-cols-1 mx-4'>
+		<div className='gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 grid grid-cols-1 m-4'>
 			{files?.map(file => <FileCard key={file._id} file={file} />)}
 		</div>
 	)
