@@ -1,5 +1,5 @@
 import { ConvexError, v } from 'convex/values'
-import { internalMutation, MutationCtx, QueryCtx } from './_generated/server'
+import { internalMutation, MutationCtx, query, QueryCtx } from './_generated/server'
 
 export async function getUserIdentity(ctx: MutationCtx | QueryCtx) {
 	const tokenIdentifier = await ctx.auth.getUserIdentity().then(data => data?.tokenIdentifier)
@@ -10,27 +10,35 @@ export async function getUserIdentity(ctx: MutationCtx | QueryCtx) {
 		.first()
 }
 
-export async function getUserData(ctx: MutationCtx | QueryCtx, id_s: { tokenIdentifier?: string; userId?: string }) {
-	const { tokenIdentifier, userId } = id_s
-	if (tokenIdentifier) {
-		return ctx.db
-			.query('users')
-			.withIndex('by_token', q => q.eq('tokenIdentifier', tokenIdentifier))
-			.first()
-	}
-	if (userId) {
-		return ctx.db
-			.query('users')
-			.withIndex('by_userId', q => q.eq('id', userId))
-			.first()
-	}
-	return null
-}
+export const getUserData = query({
+	args: { orgId: v.optional(v.string()) },
+	async handler(ctx, args_0) {
+		const user = await getUserIdentity(ctx)
+		if (!user) throw new ConvexError('User not found')
+		if (args_0.orgId) {
+			const org = await ctx.db
+				.query('organization')
+				.withIndex('by_orgId', q => q.eq('id', args_0.orgId!))
+				.first()
+
+			// NOTE: for safety measueres
+			if (!org) throw new ConvexError('org not found')
+
+			const userInOrg = org.users.find(u => u.user_id === user._id)
+
+			// NOTE: for safety measueres
+			if (!userInOrg) throw new ConvexError('user is not present in org')
+
+			return { ...user, role: userInOrg.role, orgId: org._id }
+		}
+		return { ...user, role: undefined, orgId: undefined }
+	},
+})
 
 export const createUser = internalMutation({
 	/*
-	 *create User
-	 *if user already exists then skip
+	 * create User
+	 * if user already exists then skip
 	 */
 	args: {
 		id: v.string(),

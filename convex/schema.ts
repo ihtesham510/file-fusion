@@ -15,13 +15,14 @@ export default defineSchema({
 		.index('by_userId', ['id']),
 	files: defineTable({
 		file_name: v.string(),
-		file_type: v.union(v.literal('')),
-		userId: v.optional(v.id('users')),
-		org: v.object({ user: v.id('users'), org: v.id('organization') }),
+		file_type: v.string(),
+		user: v.id('users'),
+		org: v.optional(v.id('organization')),
 		file_size: v.number(),
 		file_url: v.string(),
 		storageId: v.id('_storage'),
 	}),
+
 	organization: defineTable({
 		org_name: v.string(),
 		image_url: v.optional(v.string()),
@@ -31,7 +32,9 @@ export default defineSchema({
 	}).index('by_orgId', ['id']),
 	collections: defineTable({
 		name: v.string(),
+		userId: v.optional(v.id('users')),
+		org: v.object({ user: v.id('users'), org: v.id('organization') }),
 		image_url: v.string(),
 		files: v.array(v.id('files')),
-	}),
+	}).index('by_user_org', ['org.org', 'org.user']),
 })
