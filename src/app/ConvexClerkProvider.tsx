@@ -4,7 +4,7 @@ import { useTheme } from 'next-themes'
 import { PropsWithChildren, useEffect, useState, useMemo } from 'react'
 import { dark } from '@clerk/themes'
 import { LoaderCircleIcon } from 'lucide-react'
-import { useAuth } from '@clerk/clerk-react'
+import { useAuth } from '@clerk/nextjs'
 import { ConvexReactClient } from 'convex/react'
 import { ConvexProviderWithClerk } from 'convex/react-clerk'
 

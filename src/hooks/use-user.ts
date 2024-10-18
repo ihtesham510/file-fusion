@@ -1,4 +1,4 @@
-import { useOrganization } from '@clerk/clerk-react'
+import { useOrganization } from '@clerk/nextjs'
 import { api } from '@convex/_generated/api'
 import { useQuery } from 'convex/react'
 

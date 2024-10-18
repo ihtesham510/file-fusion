@@ -1,6 +1,6 @@
 'use client'
 
-import { useOrganization, useUser } from '@clerk/clerk-react'
+import { useOrganization, useUser } from '@clerk/nextjs'
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 
