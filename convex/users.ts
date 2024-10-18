@@ -11,27 +11,10 @@ export async function getUserIdentity(ctx: MutationCtx | QueryCtx) {
 }
 
 export const getUserData = query({
-	args: { orgId: v.optional(v.string()) },
-	async handler(ctx, args_0) {
+	async handler(ctx) {
 		const user = await getUserIdentity(ctx)
 		if (!user) throw new ConvexError('User not found')
-		if (args_0.orgId) {
-			const org = await ctx.db
-				.query('organization')
-				.withIndex('by_orgId', q => q.eq('id', args_0.orgId!))
-				.first()
-
-			// NOTE: for safety measueres
-			if (!org) throw new ConvexError('org not found')
-
-			const userInOrg = org.users.find(u => u.user_id === user._id)
-
-			// NOTE: for safety measueres
-			if (!userInOrg) throw new ConvexError('user is not present in org')
-
-			return { ...user, role: userInOrg.role, orgId: org._id }
-		}
-		return { ...user, role: undefined, orgId: undefined }
+		return user
 	},
 })
 

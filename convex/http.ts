@@ -51,48 +51,16 @@ http.route({
 					}
 					break
 				case 'organization.created':
-					await ctx.runMutation(internal.organization.createOrg, {
-						id: result.data.id,
-						users: [],
-						image_url: result.data.image_url,
-						org_name: result.data.name,
-						logo_url: result.data.image_url,
-					})
 					break
 				case 'organization.updated':
-					await ctx.runMutation(internal.organization.updateOrg, {
-						id: result.data.id,
-						image_url: result.data.image_url,
-						org_name: result.data.name,
-						logo_url: result.data.image_url,
-					})
 					break
 				case 'organization.deleted':
-					if (result.data.id) {
-						await ctx.runMutation(internal.organization.delOrg, {
-							id: result.data.id,
-						})
-					}
 					break
 				case 'organizationMembership.created':
-					await ctx.runMutation(internal.organization.createMemShip, {
-						userId: result.data.public_user_data.user_id,
-						orgId: result.data.organization.id,
-						role: result.data.role,
-					})
 					break
 				case 'organizationMembership.updated':
-					await ctx.runMutation(internal.organization.updateMemShip, {
-						userId: result.data.public_user_data.user_id,
-						orgId: result.data.organization.id,
-						role: result.data.role,
-					})
 					break
 				case 'organizationMembership.deleted':
-					await ctx.runMutation(internal.organization.delMemShip, {
-						orgId: result.data.organization.id,
-						userId: result.data.public_user_data.user_id,
-					})
 					break
 			}
 

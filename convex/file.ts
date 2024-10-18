@@ -3,12 +3,6 @@ import { mutation, query, QueryCtx } from './_generated/server'
 import { getUserIdentity } from './users'
 import { Id } from './_generated/dataModel'
 
-async function getOrgData(ctx: QueryCtx, id: Id<'organization'>) {
-	const data = await ctx.db.get(id)
-	if (!data) throw new ConvexError('org not found')
-	const { org_name, logo_url, image_url } = data
-	return { org_name, logo_url, image_url }
-}
 async function getUser(ctx: QueryCtx, id: Id<'users'>) {
 	const data = await ctx.db.get(id)
 	if (!data) throw new ConvexError('user not found')
@@ -25,12 +19,10 @@ export const getfiles = query({
 	 * query files by userId where org is undefined
 	 *
 	 * then map through the files and get the user data
-	 *  insert the user and org data in the file object and resturn the array
+	 *  insert the user data in the file object and resturn the array
 	 */
 	args: {
-		orgId: v.optional(v.id('organization')),
-		file_name: v.optional(v.string()),
-		file_type: v.optional(v.string()),
+		orgId: v.optional(v.string()),
 	},
 	async handler(ctx, args_0) {
 		const user = await getUserIdentity(ctx)
@@ -47,7 +39,6 @@ export const getfiles = query({
 		return await Promise.all(
 			files.map(async file => ({
 				...file,
-				org: file.org ? await getOrgData(ctx, file.org) : undefined,
 				user: await getUser(ctx, file.user),
 			})),
 		)
@@ -59,7 +50,7 @@ export const createFile = mutation({
 		file_name: v.string(),
 		file_type: v.string(),
 		userId: v.id('users'),
-		org: v.optional(v.id('organization')),
+		org: v.optional(v.string()),
 		file_size: v.number(),
 		file_url: v.string(),
 		storageId: v.id('_storage'),

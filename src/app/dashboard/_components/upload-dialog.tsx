@@ -13,6 +13,7 @@ import axios from 'axios'
 import { Progress } from '@/components/ui/progress'
 import useUser from '@/hooks/use-user'
 import { useToast } from '@/hooks/use-toast'
+import { useOrganization } from '@clerk/nextjs'
 
 const UploadFileDialog = ({ children }: PropsWithChildren) => {
 	const [file_name, setFile_name] = useState<string>('')
@@ -26,6 +27,7 @@ const UploadFileDialog = ({ children }: PropsWithChildren) => {
 	const generateUploadUrl = useMutation(api.file.getUploadUrl)
 	const getFileUrl = useMutation(api.file.getFileUrl)
 	const { toast } = useToast()
+	const { organization } = useOrganization()
 	const user = useUser()
 	useEffect(() => {
 		setDisabled(status !== undefined)
@@ -92,7 +94,7 @@ const UploadFileDialog = ({ children }: PropsWithChildren) => {
 				file_url: fileUrl.toString(),
 				file_size: file.size,
 				userId: user._id,
-				org: user.orgId,
+				org: organization?.id,
 				storageId: storageId,
 			})
 			toast({
@@ -107,6 +109,7 @@ const UploadFileDialog = ({ children }: PropsWithChildren) => {
 			setProgress(0)
 		}
 	}, [
+		organization?.id,
 		setStatus,
 		toast,
 		setIsOpen,

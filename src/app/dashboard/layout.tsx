@@ -14,10 +14,11 @@ import {
 } from '@/components/ui/dropdown-menu'
 import Links from './_components/Links'
 import UploadFileDialog from './_components/upload-dialog'
+import { ClerkLoaded } from '@clerk/nextjs'
 
 export default function Dashboard_Layout({ children }: PropsWithChildren) {
 	return (
-		<div>
+		<ClerkLoaded>
 			<Header />
 			<div className='h-[10vh] w-full justify-between items-center flex'>
 				<div className='relative hidden sm:block ml-4'>
@@ -64,6 +65,6 @@ export default function Dashboard_Layout({ children }: PropsWithChildren) {
 				</div>
 				<ScrollArea className='lg:h-[75vh] w-full h-auto'>{children}</ScrollArea>
 			</div>
-		</div>
+		</ClerkLoaded>
 	)
 }

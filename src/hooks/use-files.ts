@@ -1,9 +1,9 @@
 import { api } from '@convex/_generated/api'
 import { useQuery } from 'convex/react'
-import useUser from './use-user'
+import { useOrganization } from '@clerk/nextjs'
 
 export default function useFiles() {
-	const user = useUser()
-	const files = useQuery(api.file.getfiles, { orgId: user?.orgId })
+	const { organization } = useOrganization()
+	const files = useQuery(api.file.getfiles, { orgId: organization?.id })
 	return { files }
 }

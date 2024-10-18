@@ -1,9 +1,8 @@
 'use client'
-import { ClerkLoaded, ClerkLoading, ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider } from '@clerk/nextjs'
 import { useTheme } from 'next-themes'
 import { PropsWithChildren, useEffect, useState, useMemo } from 'react'
 import { dark } from '@clerk/themes'
-import { LoaderCircleIcon } from 'lucide-react'
 import { useAuth } from '@clerk/nextjs'
 import { ConvexReactClient } from 'convex/react'
 import { ConvexProviderWithClerk } from 'convex/react-clerk'
@@ -28,16 +27,9 @@ export default function CustomClerkProvider({ children }: PropsWithChildren) {
 			signUpForceRedirectUrl='/dashboard/allfiles'
 			appearance={{ baseTheme: calculatedTheme }}
 		>
-			<ClerkLoading>
-				<div className='flex justify-center items-center h-screen w-full'>
-					<LoaderCircleIcon size={40} className='animate-spin' />
-				</div>
-			</ClerkLoading>
-			<ClerkLoaded>
-				<ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-					{children}
-				</ConvexProviderWithClerk>
-			</ClerkLoaded>
+			<ConvexProviderWithClerk client={convex} useAuth={useAuth}>
+				{children}
+			</ConvexProviderWithClerk>
 		</ClerkProvider>
 	)
 }
