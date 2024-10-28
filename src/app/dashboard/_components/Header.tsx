@@ -1,36 +1,28 @@
-import ThemeSwitcher from './ThemeSwitcher'
+import { BellIcon } from 'lucide-react'
+import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
-import { Sidebar } from 'lucide-react'
-import PathDisplay from './PathDisplay'
-import { OrganizationSwitcher, UserButton } from '@clerk/nextjs'
+import { Breadcrumb, BreadcrumbEllipsis, BreadcrumbItem, BreadcrumbList } from '@/components/ui/breadcrumb'
+import { SidebarTrigger } from '@/components/ui/sidebar'
+
 export default function Header() {
 	return (
-		<header className='flex justify-between items-center z-10 lg:z-0 backdrop-blur sticky lg:static top-0 w-full lg:h-[15vh] h-[10vh]'>
-			<Button variant='outline' size='icon' className='lg:hidden ml-4'>
-				<Sidebar />
-			</Button>
-			<h1 className='text-3xl font-supreme-bold-italic ml-4 hidden lg:block'>File Fusion</h1>
-			<PathDisplay className='hidden lg:block text-2xl font-bold' />
-			<Button variant='outline' size='sm' className='lg:hidden'>
-				<OrganizationSwitcher
-					afterCreateOrganizationUrl='/dashboard/allfiles'
-					afterLeaveOrganizationUrl='/dashboard/allfiles'
-				/>
-			</Button>
-			<div className='flex gap-4 mr-4 lg:w-[350px] items-center justify-end'>
-				<Button variant='outline' size='sm' className='hidden lg:block'>
-					<OrganizationSwitcher
-						afterCreateOrganizationUrl='/dashboard/allfiles'
-						afterLeaveOrganizationUrl='/dashboard/allfiles'
-					/>
-				</Button>
-				<Button variant='ghost' size='icon' className='rounded-full'>
-					<UserButton />
-				</Button>
-				<span className='hidden lg:block'>
-					<ThemeSwitcher />
-				</span>
+		<header className='flex m-5 gap-4 justify-between items-center'>
+			<div className='flex gap-4 items-center'>
+				<SidebarTrigger />
+				<Separator orientation='vertical' className='mr-2 h-4' />
+				<Breadcrumb>
+					<BreadcrumbList>
+						{/* ... */}
+						<BreadcrumbItem>
+							<BreadcrumbEllipsis />
+						</BreadcrumbItem>
+						{/* ... */}
+					</BreadcrumbList>
+				</Breadcrumb>
 			</div>
+			<Button variant='outline' size='icon' className='rounded-full'>
+				<BellIcon />
+			</Button>
 		</header>
 	)
 }

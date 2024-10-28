@@ -5,6 +5,9 @@ const nextConfig = {
 			{
 				hostname: removeHttp(process.env.NEXT_PUBLIC_CONVEX_URL),
 			},
+			{
+				hostname: 'img.clerk.com',
+			},
 		],
 	},
 }

@@ -3,33 +3,37 @@
 import { FileIcon, Star, TrashIcon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { SidebarMenuButton } from '@/components/ui/sidebar'
 
 export default function Links() {
 	const pathname = usePathname()
 	const isActive = (path: string) => pathname.split('/').includes(path)
 	return (
-		<nav className='grid gap-6 text-lg font-medium'>
-			<Link
-				href='/dashboard/allfiles'
-				className={`${isActive('allfiles') ? 'text-foreground' : 'text-muted-foreground'} flex items-center gap-4 px-2.5 hover:text-foreground`}
-			>
-				<FileIcon className='h-5 w-5' />
-				All Files
+		<>
+			<Link href='/dashboard/allfiles'>
+				<SidebarMenuButton
+					className={`${isActive('allfiles') ? 'text-foreground' : 'text-muted-foreground'} font-semibold flex items-center gap-2 px-2.5 hover:text-foreground`}
+				>
+					<FileIcon className='size-4' />
+					All Files
+				</SidebarMenuButton>
 			</Link>
-			<Link
-				href='/dashboard/favorites'
-				className={`${isActive('favorites') ? 'text-foreground' : 'text-muted-foreground'} flex items-center gap-4 px-2.5 hover:text-foreground`}
-			>
-				<Star className='h-5 w-5' />
-				Favorites
+			<Link href='/dashboard/favorites'>
+				<SidebarMenuButton
+					className={`${isActive('favorites') ? 'text-foreground' : 'text-muted-foreground'} font-semibold flex items-center gap-2 px-2.5 hover:text-foreground`}
+				>
+					<Star className='size-4' />
+					Favorites
+				</SidebarMenuButton>
 			</Link>
-			<Link
-				href='/dashboard/trash'
-				className={`${isActive('trash') ? 'text-foreground' : 'text-muted-foreground'} flex items-center gap-4 px-2.5 hover:text-foreground`}
-			>
-				<TrashIcon className='h-5 w-5' />
-				Trash
+			<Link href='/dashboard/trash'>
+				<SidebarMenuButton
+					className={`${isActive('trash') ? 'text-foreground' : 'text-muted-foreground'} font-semibold flex items-center gap-2 px-2.5 hover:text-foreground`}
+				>
+					<TrashIcon className='size-4' />
+					Trash
+				</SidebarMenuButton>
 			</Link>
-		</nav>
+		</>
 	)
 }
