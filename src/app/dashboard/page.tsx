@@ -1,6 +1,5 @@
 'use client'
 import useFiles from '@/hooks/use-files'
-import FileCard from '../_components/file-card'
 import { LoaderCircleIcon } from 'lucide-react'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Input } from '@/components/ui/input'
@@ -14,9 +13,12 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuCheckboxItem,
 } from '@/components/ui/dropdown-menu'
-import UploadFileDialog from '../_components/upload-dialog'
-export default function AllFiles() {
+import useFolder from '@/hooks/use-folder'
+import FileCard from './_components/file-card'
+import UploadFileDialog from './_components/upload-dialog'
+export default function Dashboard() {
 	const { files } = useFiles()
+	const folders = useFolder()
 	if (!files)
 		return (
 			<div className='w-full h-[500px] flex justify-center items-center'>
@@ -63,6 +65,7 @@ export default function AllFiles() {
 			</div>
 			<ScrollArea className='lg:h-[70vh] w-full h-auto'>
 				<div className='gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 grid grid-cols-1 m-4'>
+					{folders?.map(folder => <FileCard key={folder._id} folder={folder} />)}
 					{files?.map(file => <FileCard key={file._id} file={file} />)}
 				</div>
 			</ScrollArea>

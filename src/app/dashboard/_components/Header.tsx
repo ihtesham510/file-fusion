@@ -1,8 +1,8 @@
 import { BellIcon } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
-import { Breadcrumb, BreadcrumbEllipsis, BreadcrumbItem, BreadcrumbList } from '@/components/ui/breadcrumb'
 import { SidebarTrigger } from '@/components/ui/sidebar'
+import HeaderBreadCrumb from './header-bread-crumb'
 
 export default function Header() {
 	return (
@@ -10,15 +10,7 @@ export default function Header() {
 			<div className='flex gap-4 items-center'>
 				<SidebarTrigger />
 				<Separator orientation='vertical' className='mr-2 h-4' />
-				<Breadcrumb>
-					<BreadcrumbList>
-						{/* ... */}
-						<BreadcrumbItem>
-							<BreadcrumbEllipsis />
-						</BreadcrumbItem>
-						{/* ... */}
-					</BreadcrumbList>
-				</Breadcrumb>
+				<HeaderBreadCrumb />
 			</div>
 			<Button variant='outline' size='icon' className='rounded-full'>
 				<BellIcon />

@@ -1,7 +1,6 @@
 'use client'
-import { Button } from '@/components/ui/button'
 import { ClerkLoaded, OrganizationProfile, useOrganization } from '@clerk/nextjs'
-import { ArrowLeftIcon, ShieldAlert } from 'lucide-react'
+import { ShieldAlert } from 'lucide-react'
 import Link from 'next/link'
 
 export default function OrganizationProfilePage() {
@@ -16,10 +15,7 @@ export default function OrganizationProfilePage() {
 								<ShieldAlert className='size-36' />
 								<div className='text-xl flex w-[400px]'>
 									Please Switch to an organization or &nbsp;
-									<Link
-										href='/dashboard/allfiles'
-										className='hover:text-primary text-primary/25 underline underline-offset-2'
-									>
+									<Link href='/dashboard' className='hover:text-primary text-primary/25 underline underline-offset-2'>
 										Go Back
 									</Link>
 								</div>
@@ -32,11 +28,6 @@ export default function OrganizationProfilePage() {
 							/>
 						)}
 					</div>
-					<Link href='/dashboard/allfiles' className='absolute top-5 left-5 hidden lg:block'>
-						<Button>
-							<ArrowLeftIcon />
-						</Button>
-					</Link>
 				</div>
 			</ClerkLoaded>
 		</>

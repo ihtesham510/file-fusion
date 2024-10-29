@@ -1,7 +1,11 @@
 import useFiles from '@/hooks/use-files'
+import useFolder from '@/hooks/use-folder'
 
 type UseFiles = ReturnType<typeof useFiles>
 export type TypeFile = NonNullable<UseFiles['files']>[number]
+
+type UseFolder = ReturnType<typeof useFolder>
+export type TypeFolder = NonNullable<UseFolder>[number]
 
 export type TypesofFile =
 	| undefined

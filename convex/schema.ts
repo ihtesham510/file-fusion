@@ -10,9 +10,11 @@ export default defineSchema({
 		email: v.string(),
 		imageUrl: v.string(),
 		tokenIdentifier: v.string(),
+		parentref: v.optional(v.id('folder')),
 	})
 		.index('by_token', ['tokenIdentifier'])
-		.index('by_userId', ['id']),
+		.index('by_userId', ['id'])
+		.index('by_folder', ['parentref']),
 	files: defineTable({
 		file_name: v.string(),
 		file_type: v.string(),
@@ -29,4 +31,12 @@ export default defineSchema({
 		image_url: v.string(),
 		files: v.array(v.id('files')),
 	}).index('by_user_org', ['org.org', 'org.user']),
+	folder: defineTable({
+		name: v.string(),
+		owner: v.id('users'),
+		org: v.optional(v.string()),
+		parentref: v.optional(v.id('folder')),
+	})
+		.index('by_owner', ['owner'])
+		.index('by_org', ['org']),
 })

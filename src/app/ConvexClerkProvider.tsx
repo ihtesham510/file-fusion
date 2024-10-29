@@ -23,8 +23,8 @@ export default function CustomClerkProvider({ children }: PropsWithChildren) {
 	return (
 		<ClerkProvider
 			afterSignOutUrl='/'
-			signInForceRedirectUrl='/dashboard/allfiles'
-			signUpForceRedirectUrl='/dashboard/allfiles'
+			signInForceRedirectUrl='/dashboard'
+			signUpForceRedirectUrl='/dashboard'
 			appearance={{ baseTheme: calculatedTheme }}
 		>
 			<ConvexProviderWithClerk client={convex} useAuth={useAuth}>
